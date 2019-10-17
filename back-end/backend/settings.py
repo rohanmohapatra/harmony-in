@@ -41,12 +41,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'users.apps.UsersConfig',
-    'api.apps.ApiConfig',
     'properties.apps.PropertiesConfig'
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

@@ -19,7 +19,6 @@ from properties import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('api.urls')),
     path('properties/', views.properties_list),
     path('properties/<int:pk>/', views.property_detail),
 ]
