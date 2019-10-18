@@ -1,5 +1,14 @@
 # SETTING UP DJANGO
 
+## Requirements 
+```
+django
+djangorestframework
+django-rest-auth
+jsonfield
+django-cors-headers
+```
+
 ## Install django with pip3 
 
 ```
