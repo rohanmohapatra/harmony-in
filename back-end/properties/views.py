@@ -29,7 +29,7 @@ def property_detail(request, pk):
     """
     print("Whats up "+str(pk))
     try:
-        property = Property.objects.all()[pk]
+        property = Property.objects.get(id=pk)
     except Property.DoesNotExist:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
