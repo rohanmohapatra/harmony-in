@@ -5,10 +5,11 @@ import simplejson
 # Create your models here.
 class Property(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    propertyName = models.CharField(max_length=120)
-    propertyAddress = models.CharField(max_length=120)
-    price = models.CharField(max_length=10)
-    bhk = models.CharField(max_length=10)
+    propertyName = models.CharField(max_length=120, blank=True, null=True)
+    propertyAddress = models.CharField(max_length=120, blank=True, null=True)
+    price = models.CharField(max_length=20)
+    bhk = models.CharField(max_length=20)
+    societyName = models.CharField(max_length=100)
     moreData = JSONField()
 
     @property

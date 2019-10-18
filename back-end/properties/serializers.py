@@ -5,6 +5,6 @@ class PropertySerializer(serializers.ModelSerializer):
     moreData = serializers.JSONField(required=False)    
     class Meta:
         model = Property
-        fields = ["propId", "propertyName", "propertyAddress", "price", "bhk", "moreData"]
+        fields = ["propId", "propertyName", "propertyAddress", "price", "bhk", "moreData", "societyName"]
         depth = 1
 
