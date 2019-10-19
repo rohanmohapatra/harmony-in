@@ -42,13 +42,17 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'properties.apps.PropertiesConfig'
+    'login'
 ]
 
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
 
 MIDDLEWARE = [
