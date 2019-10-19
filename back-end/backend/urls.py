@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from properties import views
+from login import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/properties/', views.properties_list),
     path('api/v1/properties/<int:pk>/', views.property_detail),
+    path('api/v1/users/register/', views.userList.createuser),
+    path('api/v1/users/login/',views.loginView.loginuser),
+    path("api/v1/users/logout/",views.logoutuser),
 ]
