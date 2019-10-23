@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from properties import views
+from properties import views as prop_views
 from login import views
+from recommender_system import views as rec_views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/properties/', views.properties_list),
-    path('api/v1/properties/<int:pk>/', views.property_detail),
+    path('api/v1/properties/', prop_views.properties_list),
+    path('api/v1/properties/<int:pk>/', prop_views.property_detail),
     path('api/v1/users/register/', views.userList.createuser),
     path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),
+    path("log_user_activity/", rec_views.log_user_activity),
+    path("user_activity_list/", rec_views.user_activity_list),
 ]
