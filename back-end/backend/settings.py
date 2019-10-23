@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'properties.apps.PropertiesConfig'
+    'properties',
     'login'
 ]
 

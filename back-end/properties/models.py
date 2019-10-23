@@ -17,5 +17,5 @@ class Property(models.Model):
         return "prop" + str(self.id).zfill(5)
 
     def __str__(self):
-        return str(self.created) + " " + self.propertyName + " " + self.propertyAddress + " " + self.price + " " + self.bhk
+        return str(self.created) + " " + str(self.id) + " " + self.price + " " + self.bhk
 
