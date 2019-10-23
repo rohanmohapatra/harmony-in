@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
     'properties',
-    'login'
+    'login',
+    'recommender_system',
 ]
 
 

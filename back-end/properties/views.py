@@ -11,7 +11,7 @@ def properties_list(request):
     """
     List all properties, or create a new property. 
     """
-    print(request.user)
+    print(type(request.user))
     if request.method == 'GET':
         properties = Property.objects.all()
         serializer = PropertySerializer(properties, many=True)
