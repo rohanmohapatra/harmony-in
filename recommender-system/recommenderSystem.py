@@ -56,6 +56,6 @@ model.fit(trainset)
 ####Output Function########
 
 def outputTopK(userID,propertyIDs,K):
-		l = [(propertyID,model.predict(str(userID),str(propertyID))) for propertyID in propertyIDs]
+		l = [(propertyID,model.predict(userID,propertyID).est) for propertyID in propertyIDs]
 		l.sort(key = lambda x: x[-1	],reverse = True)
 		return l[:K]
