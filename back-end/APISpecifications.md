@@ -4,16 +4,16 @@ I want all microservices running on different ports. The microservices should be
 ## Users Microservice
 
 ### /api/v1/users/login
-Input
+Input:
 ```
 {
     "username" : "rohanmohapatra",
     "password" : "9671c73253cee9b18b8df367e3e627fab2863fe8"
 }
 ```
-Password is Sha1 encrypted, follow this, it will be sent from the front end.
-```
-Output
+Password is **Sha1 encrypted**, follow this, it will be sent from the front end.
+
+Output:
 ```
 {
     "token" : "IgBY8WWTY4"
@@ -33,6 +33,7 @@ Input:
 }
 ```
 Type : `"customer", "broker", "landlord"`
+
 Output:
 ```
 {
