@@ -66,8 +66,15 @@ Output:
 
 ## Properties Microservices
 
+###Get all properties
 ### /api/v1/properties/
-Method : `GET`
+Method : `POST`
+Input:
+```
+{ 
+    filters: []
+}
+```
 Output:
 ```
 
@@ -98,8 +105,14 @@ Output:
 ```
 
 ### Filter Properties based query string
-### /api/v1/properties/filter=
-
+### /api/v1/properties/
+Input:
+```
+{ 
+    filters: []
+}
+```
+Output : should be ordered by filter using the recommender
 ### /api/v1/properties/add/
 Method : `POST`
 Input:
