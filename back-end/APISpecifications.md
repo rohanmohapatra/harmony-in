@@ -3,7 +3,8 @@
 I want all microservices running on different ports. The microservices should be deployable. Add code and follow the API Sepcs **carefully**.
 ## Users Microservice
 
-### /api/v1/users/login
+### /api/v1/users/login 
+Method : `POST`
 Input:
 ```
 {
@@ -21,6 +22,7 @@ Output:
 ```
 
 ### /api/v1/users/register
+Method : `POST`
 Input:
 ```
 {  
@@ -46,7 +48,7 @@ Output:
 ```
 
 ### /api/v1/users/authenticate
-
+Method : `POST`
 Input:
 ```
 {
@@ -61,6 +63,72 @@ Output:
     "username" : "rohanmohapatra"
 }
 ```
+
+## Properties Microservices
+
+### /api/v1/properties/
+Method : `GET`
+Output:
+```
+
+[
+    {
+        "id" : "propsaleXX",
+        "propertyName" : "Name of the property",
+        "propertyAddress" : "Address",
+        "price" : "45Lacs",
+        "bhk": "4 BHK Flat",
+        "moreData" : 
+            {
+                "carpet area", "632\u00a0sqft",
+                "status" : "Ready to Move", 
+                "floor" : "1 out of 12 floors",
+                "transaction" : "New Property", 
+                "furnishing": "Semi-Furnished", 
+                "facing": "South", 
+                "overlooking": "Garden/Park, Main Road", 
+                "car parking", "1 Covered, 1 Open", 
+                "bathroom" : "2", 
+                "balcony" : "1",
+                "ownership" :  "Freehold"
+            }
+    },
+
+]
+```
+
+### Filter Properties based query string
+### /api/v1/properties/filter=
+
+### /api/v1/properties/add/
+Method : `POST`
+Input:
+```
+{
+    "id" : "propsaleXX",
+    "propertyName" : "Name of the property",
+    "propertyAddress" : "Address",
+    "price" : "45Lacs",
+    "bhk": "4 BHK Flat",
+    "moreData" : 
+        {
+            "carpet area", "632\u00a0sqft",
+            "status" : "Ready to Move", 
+            "floor" : "1 out of 12 floors",
+            "transaction" : "New Property", 
+            "furnishing": "Semi-Furnished", 
+            "facing": "South", 
+            "overlooking": "Garden/Park, Main Road", 
+            "car parking", "1 Covered, 1 Open", 
+            "bathroom" : "2", 
+            "balcony" : "1",
+            "ownership" :  "Freehold"
+        }
+}
+```
+
+
+
 
 
     
