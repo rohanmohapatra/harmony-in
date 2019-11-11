@@ -23,6 +23,15 @@ def properties_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def propId_list(request):
+    """
+    List all propIds. 
+    """
+    print("Hey there")
+    propIds = ["prop" + str(id).zfill(5) for id in  list(Property.objects.values_list('id', flat=True))]
+    return Response(propIds)
+    
 @api_view(['GET', ' PUT', 'DELETE'])
 def property_detail(request, pk):
     """

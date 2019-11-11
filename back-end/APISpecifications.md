@@ -139,11 +139,18 @@ Input:
         }
 }
 ```
-
-
-
-
-
-    
-
-    
+### /api/v1/propIds/
+Method: `GET`
+Input:
+```
+{
+}
+```
+Output:
+```
+[
+	'prop0002',
+	'prop0001',
+	'prop0060',
+]
+```    

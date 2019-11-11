@@ -23,9 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/properties/', prop_views.properties_list),
     path('api/v1/properties/<int:pk>/', prop_views.property_detail),
+    path('api/v1/propIds/', prop_views.propId_list),
     path('api/v1/users/register/', views.userList.createuser),
     path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),
-    path("log_user_activity/", rec_views.log_user_activity),
-    path("user_activity_list/", rec_views.user_activity_list),
+#    path("log_user_activity/", rec_views.log_user_activity),
+#    path("user_activity_list/", rec_views.user_activity_list),
+#    path("matrify", rec_views.matrify_logged_data),
 ]
