@@ -18,14 +18,22 @@ from django.urls import include, path
 from properties import views as prop_views
 from login import views
 from recommender_system import views as rec_views 
+from rest_framework_jwt.views import obtain_jwt_token
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/properties/', prop_views.properties_list),
     path('api/v1/properties/<int:pk>/', prop_views.property_detail),
-    path('api/v1/users/register/', views.userList.createuser),
-    path('api/v1/users/login/',views.loginView.loginuser),
+    #path('api/v1/users/register/', views.userList.createuser),
+    #path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),
     path("log_user_activity/", rec_views.log_user_activity),
     path("user_activity_list/", rec_views.user_activity_list),
+    #path('token-auth/', obtain_jwt_token),
+    #path('users/', views.UserList.as_view()),
+    #path('current_user/', views.current_user),
+    path('api/v1/users/register/', views.HarmonyUserList.as_view()),
+    path('api/v1/users/login/',obtain_jwt_token),
+    path('api/v1/users/authenticate', views.harmonyCurrentUser),
 ]

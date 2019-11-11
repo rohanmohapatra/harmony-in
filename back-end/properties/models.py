@@ -9,8 +9,8 @@ class Property(models.Model):
     propertyAddress = models.CharField(max_length=120, blank=True, null=True)
     price = models.CharField(max_length=20)
     bhk = models.CharField(max_length=20)
-    societyName = models.CharField(max_length=100)
-    moreData = JSONField()
+    societyName = models.CharField(max_length=100, blank=True, null=True)
+    moreData = JSONField(blank=True, null=True)
 
     @property
     def propId(self):
