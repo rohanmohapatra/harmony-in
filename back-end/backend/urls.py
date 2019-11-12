@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/v1/users/register/', views.userList.createuser),
     path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),
+    path("api/v1/properties_filter", prop_views.PropertyList.as_view(), name="PropertyList")
 #    path("log_user_activity/", rec_views.log_user_activity),
 #    path("user_activity_list/", rec_views.user_activity_list),
 #    path("matrify", rec_views.matrify_logged_data),
