@@ -1,5 +1,6 @@
 
 from login.serializers import HarmonyUserSerializer
+from . models import user
 
 
 def my_jwt_response_handler(token, user=None, request=None):

@@ -36,4 +36,5 @@ urlpatterns = [
     path('api/v1/users/register/', views.HarmonyUserList.as_view()),
     path('api/v1/users/login/',obtain_jwt_token),
     path('api/v1/users/authenticate', views.harmonyCurrentUser),
+    path('api/v1/users/details', views.harmonyGetUserDetails),
 ]

@@ -17,6 +17,8 @@ from django.contrib.auth import (
     logout
 )
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+
 
 '''
 class userList(generics.CreateAPIView):
@@ -119,3 +121,21 @@ def harmonyCurrentUser(request):
     
     serializer = HarmonyUserSerializer(request.user)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def harmonyGetUserDetails(request):
+    serializer = HarmonyUserSerializer(request.user)
+    #print(user.objects.filter(username = serializer.data['username']))
+    #data = user.objects.filter(username = serializer.data['username']).values()
+    #print(user.objects.filter(username = serializer.data['username']).get().user_type)
+    querySet = user.objects.filter(username = serializer.data['username']).get()
+    print(querySet.username)
+    data = dict()
+    data["username"] = querySet.username
+    data["firstname"] = querySet.firstname
+    data["lastname"] = querySet.lastname
+    data["email"] = querySet.email
+    data["user_type"] = querySet.user_type
+
+    return JsonResponse(data, safe=False)
+
