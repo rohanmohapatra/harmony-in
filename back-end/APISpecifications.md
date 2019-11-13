@@ -31,7 +31,7 @@ Input:
     "username" : "rohanmohapatra",
     "email" : "rohanmohapatra@harmony.in",
     "password" : "9671c73253cee9b18b8df367e3e627fab2863fe8",
-    "type" : "customer"
+    "user_type" : "customer"
 }
 ```
 Type : `"customer", "broker", "landlord"`
