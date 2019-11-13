@@ -7,4 +7,10 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = ["propId", "propertyName", "propertyAddress", "price", "bhk", "moreData", "societyName"]
         depth = 1
-
+'''
+class PropIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = ["propId"]
+        depth = 1
+'''

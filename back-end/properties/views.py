@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Property
 from .serializers import PropertySerializer
+from django_filters import rest_framework as filters
+
+
 # Create your views here.
 @api_view(['GET', 'POST'])
 def properties_list(request):
@@ -18,17 +21,27 @@ def properties_list(request):
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = PropertySerializer(data=request.data)
-        if(serializer.is_valid()):
+        if (serializer.is_valid()):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def propId_list(request):
+    """
+    List all propIds. 
+    """
+    propIds = ["prop" + str(id).zfill(5) for id in list(Property.objects.values_list('id', flat=True))]
+    return Response(propIds)
+
 
 @api_view(['GET', ' PUT', 'DELETE'])
 def property_detail(request, pk):
     """
     Retrieve, update or delete a property. 
     """
-    print("Whats up "+str(pk))
+    print("Whats up " + str(pk))
     try:
         property = Property.objects.get(id=pk)
     except Property.DoesNotExist:
@@ -44,7 +57,40 @@ def property_detail(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     elif request.method == 'DELETE':
         property.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PropertyFilter(filters.FilterSet):
+    societyName = filters.CharFilter(field_name='societyName', lookup_expr='icontains')
+    propertyName = filters.CharFilter(field_name='propertyName', lookup_expr='icontains')
+    propertyAddress = filters.CharFilter(field_name='propertyAddress', lookup_expr='icontains')
+    min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
+    max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+
+    class Meta:
+        model = Property
+        fields = ['societyName', 'propertyName', 'propertyAddress', 'max_price', 'min_price']
+
+
+'''
+class PropertyList(generics.ListAPIView):
+    serializer_class = PropertySerializer
+
+    def get_queryset(self):
+        """
+        This view returns the properties based upoun the filter
+        """
+'''
+
+
+class PropertyList(generics.ListAPIView):
+    """
+    This view returns that properties based upon the filters provided
+    """
+    queryset = Property.objects.all()
+    serializer_class = PropertySerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = PropertyFilter

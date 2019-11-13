@@ -25,13 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/properties/', prop_views.properties_list),
     path('api/v1/properties/<int:pk>/', prop_views.property_detail),
-    path('api/v1/propIds/', prop_views.propId_list),
-    path("api/v1/properties_filter", prop_views.PropertyList.as_view(), name="PropertyList")
+<<<<<<< HEAD
     #path('api/v1/users/register/', views.userList.createuser),
     #path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),
-    #path("log_user_activity/", rec_views.log_user_activity),
-    #path("user_activity_list/", rec_views.user_activity_list),
+    path("log_user_activity/", rec_views.log_user_activity),
+    path("user_activity_list/", rec_views.user_activity_list),
     #path('token-auth/', obtain_jwt_token),
     #path('users/', views.UserList.as_view()),
     #path('current_user/', views.current_user),
@@ -39,4 +38,14 @@ urlpatterns = [
     path('api/v1/users/login/',obtain_jwt_token),
     path('api/v1/users/authenticate', views.harmonyCurrentUser),
     path('api/v1/users/details', views.harmonyGetUserDetails),
+=======
+    path('api/v1/propIds/', prop_views.propId_list),
+    path('api/v1/users/register/', views.userList.createuser),
+    path('api/v1/users/login/',views.loginView.loginuser),
+    path("api/v1/users/logout/",views.logoutuser),
+    path("api/v1/properties_filter", prop_views.PropertyList.as_view(), name="PropertyList")
+#    path("log_user_activity/", rec_views.log_user_activity),
+#    path("user_activity_list/", rec_views.user_activity_list),
+#    path("matrify", rec_views.matrify_logged_data),
+>>>>>>> 00e0d23165869344e9804e261d1cb22e0ed15934
 ]

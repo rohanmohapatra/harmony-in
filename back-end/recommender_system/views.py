@@ -26,3 +26,13 @@ def log_user_activity(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def matrify_logged_data(request):
+    """
+    Makes the logged user data into the matrix type format that Shailesh needs
+    """
+    user_activities = UserActivity.objects.all()
+    serializer = UserActivitySerializer(user_activities, many=True)
+    print([dict(i) for i in serializer.data])
+    return Response(status=status.HTTP_400_BAD_REQUEST)
