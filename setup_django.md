@@ -29,6 +29,9 @@ pip3 install djangorestframework
 pip3 install django-cors-headers
 ```
 
+## install Django-rest-auth
+
+pip3 install django-rest-auth
 
 ## Install httpie
 

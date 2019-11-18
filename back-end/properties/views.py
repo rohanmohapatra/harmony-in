@@ -3,14 +3,15 @@ from django.http import JsonResponse
 from .models import Property
 from .serializers import PropertySerializer
 from login.serializers import  HarmonyUserSerializer
-from rest_framework import status, generics
-from rest_framework.decorators import api_view
+from rest_framework import status, generics, permissions
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 
 # Create your views here.
 @api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
 def properties_list(request):
     """
     List all properties, or create a new property. 
@@ -29,10 +30,12 @@ def properties_list(request):
 
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def propId_list(request):
     """
     List all propIds. 
     """
+    permission_classes = (permissions.AllowAny,)
     propIds = ["prop" + str(id).zfill(5) for id in list(Property.objects.values_list('id', flat=True))]
     return Response(propIds)
 
@@ -69,7 +72,7 @@ def properties_owned_by_user(request):
     Retrieves the properties owned by the request user
     """
     seller = HarmonyUserSerializer(request.user)
-    seller_name = seller.username
+    seller_name = seller.data.username
     seller_properties = Property.objects.filter(username=seller_name)
     serializer = PropertySerializer(seller_properties, many=True)
     return Response(serializer.data)
@@ -102,6 +105,7 @@ class PropertyList(generics.ListAPIView):
     """
     This view returns that properties based upon the filters provided
     """
+    permission_classes = (permissions.AllowAny,)
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
     filter_backends = (filters.DjangoFilterBackend,)

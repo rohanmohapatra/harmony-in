@@ -1,0 +1,9 @@
+back-end/login/migrations/
+back-end/properties/migrations/
+back-end/login/__pycache__/
+back-end/properties/__pycache__/
+back-end/backend/__pycache__/
+back-end/recommender-system/__pycache__/
+
+
+
