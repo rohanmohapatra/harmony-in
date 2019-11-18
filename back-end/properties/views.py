@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from .models import Property
+from .serializers import PropertySerializer
+from login.serializers import  HarmonyUserSerializer
 from rest_framework import status, generics, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import Property
-from .serializers import PropertySerializer
 from django_filters import rest_framework as filters
 
 
@@ -15,7 +16,7 @@ def properties_list(request):
     """
     List all properties, or create a new property. 
     """
-    #print(type(request.user))
+    print(type(request.user))
     if request.method == 'GET':
         properties = Property.objects.all()
         serializer = PropertySerializer(properties, many=True)
@@ -64,6 +65,17 @@ def property_detail(request, pk):
     elif request.method == 'DELETE':
         property.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def properties_owned_by_user(request):
+    """
+    Retrieves the properties owned by the request user
+    """
+    seller = HarmonyUserSerializer(request.user)
+    seller_name = seller.data.username
+    seller_properties = Property.objects.filter(username=seller_name)
+    serializer = PropertySerializer(seller_properties, many=True)
+    return Response(serializer.data)
 
 
 class PropertyFilter(filters.FilterSet):

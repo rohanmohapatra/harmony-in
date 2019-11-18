@@ -10,6 +10,7 @@ class Property(models.Model):
     price = models.IntegerField()
     bhk = models.IntegerField()
     societyName = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     moreData = JSONField()
 
