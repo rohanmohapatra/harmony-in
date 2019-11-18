@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from rest_framework import status, generics
-from rest_framework.decorators import api_view
+from rest_framework import status, generics, permissions
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import Property
 from .serializers import PropertySerializer
@@ -10,11 +10,12 @@ from django_filters import rest_framework as filters
 
 # Create your views here.
 @api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
 def properties_list(request):
     """
     List all properties, or create a new property. 
     """
-    print(type(request.user))
+    #print(type(request.user))
     if request.method == 'GET':
         properties = Property.objects.all()
         serializer = PropertySerializer(properties, many=True)
@@ -28,10 +29,12 @@ def properties_list(request):
 
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def propId_list(request):
     """
     List all propIds. 
     """
+    permission_classes = (permissions.AllowAny,)
     propIds = ["prop" + str(id).zfill(5) for id in list(Property.objects.values_list('id', flat=True))]
     return Response(propIds)
 
@@ -90,6 +93,7 @@ class PropertyList(generics.ListAPIView):
     """
     This view returns that properties based upon the filters provided
     """
+    permission_classes = (permissions.AllowAny,)
     queryset = Property.objects.all()
     serializer_class = PropertySerializer
     filter_backends = (filters.DjangoFilterBackend,)
