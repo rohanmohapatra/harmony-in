@@ -40,17 +40,17 @@ const Sidebar = props => {
   const pages = [
     {
       title: 'My Properties',
-      href: '/seller/properties',
+      href: '/rentee/properties',
       icon: <HomeWorkIcon />
     },
     {
       title: 'Add Property',
-      href: '/seller/addproperty',
+      href: '/rentee/addproperty',
       icon: <AddBoxIcon />
     },
     {
       title: 'Analytics',
-      href: '/seller/analytics',
+      href: '/rentee/analytics',
       icon: <TrendingUpIcon />
     },
     /*

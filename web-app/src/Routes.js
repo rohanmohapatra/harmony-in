@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout, Rentee as RenteeLayout} from './layouts';
-
+import axios from 'axios';
 import {
   Home as HomeView,
   Dashboard as DashboardView,
@@ -15,6 +15,7 @@ import {
   SellerSignUp as SellerSignUpView,
   RenteeSignIn as RenteeSignInView,
   RenteeSignUp as RenteeSignUpView,
+  ViewProperties as ViewPropertiesView,
   UserList as UserListView,
   Typography as TypographyView,
   Icons as IconsView,
@@ -23,10 +24,16 @@ import {
   SignUp as SignUpView,
   SignIn as SignInView,
   NotFound as NotFoundView,
-  SellerAddToProperty as SellerAddToPropertyView
+  SellerAddToProperty as SellerAddToPropertyView,
+  RenteeAddToProperty as RenteeAddToPropertyView,
+  WorkInProgress as WorkInProgressView
 } from './views';
 
-const Routes = () => {
+const Routes = (props) => {
+  const {propertyIds} = props;
+  useEffect(() => {
+   console.log(propertyIds);
+  }, []);
   return (
     <Switch>
       <Redirect
@@ -38,6 +45,11 @@ const Routes = () => {
       exact
       from="/seller/dashboard"
       to="/seller/addproperty"
+      />
+      <Redirect
+      exact
+      from="/rentee/dashboard"
+      to="/rentee/addproperty"
       />
       <RouteWithLayout
         component={HomeView}
@@ -92,6 +104,24 @@ const Routes = () => {
         exact
         layout={SellerLayout}
         path="/seller/addproperty"
+      />
+      <RouteWithLayout
+        component={ViewPropertiesView}
+        exact
+        layout={SellerLayout}
+        path="/seller/properties"
+      />
+      <RouteWithLayout
+        component={RenteeAddToPropertyView}
+        exact
+        layout={RenteeLayout}
+        path="/rentee/addproperty"
+      />
+      <RouteWithLayout
+        component={ViewPropertiesView}
+        exact
+        layout={RenteeLayout}
+        path="/rentee/properties"
       />
 
       <RouteWithLayout
@@ -154,6 +184,16 @@ const Routes = () => {
         layout={MinimalLayout}
         path="/not-found"
       />
+      {propertyIds.map(propertyId => (
+            <RouteWithLayout
+            component={WorkInProgressView}
+            exact
+            key={propertyId}
+            layout={MinimalLayout}
+            path={propertyId}
+          />
+        ))}
+
       <Redirect to="/not-found" />
     </Switch>
   );

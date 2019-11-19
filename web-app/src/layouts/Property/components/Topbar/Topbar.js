@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Badge, Hidden, IconButton, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
@@ -27,7 +27,10 @@ const Topbar = props => {
   const classes = useStyles();
 
   const [notifications] = useState([]);
-
+  const handleClick = () => {
+    localStorage.clear();
+    window.location.href="/properties"
+  };
   return (
     <AppBar
       {...rest}
@@ -42,23 +45,37 @@ const Topbar = props => {
           />
         </RouterLink>
         <div className={classes.flexGrow} />
-        <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            className={classes.signOutButton}
-            color="inherit"
-          >
-            <InputIcon />
-          </IconButton>
-        </Hidden>
+        {(() => {
+          if(localStorage.getItem("username") && localStorage.getItem("usertype")){
+            return(
+              <Hidden mdDown>
+              <IconButton color="inherit">
+                <Badge
+                  badgeContent={notifications.length}
+                  color="primary"
+                  variant="dot"
+                >
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                className={classes.signOutButton}
+                color="inherit"
+                onClick={handleClick}
+              >
+                <InputIcon />
+              </IconButton>
+            </Hidden>
+            )
+          }
+          else{
+            return(
+            <Hidden mdDown>
+              <Button color="inherit" href="/buyer/sign-in">Sign In</Button>
+            </Hidden>)
+          }
+      })()}
+        
         <Hidden lgUp>
           <IconButton
             color="inherit"

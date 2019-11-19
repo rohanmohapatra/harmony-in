@@ -8,16 +8,19 @@ import {
   CardActions,
   Typography,
   Grid,
-  Divider
+  Divider,
+  Button
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+
 
 const useStyles = makeStyles(theme => ({
   root: {},
   imageContainer: {
-    height: 64,
-    width: 64,
+ 
     margin: '0 auto',
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: '5px',
@@ -40,8 +43,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PropertyCard = props => {
-  const { className, product, ...rest } = props;
-
+  const { className, product, price_type, ...rest } = props;
+  product["imageUrl"] = "/images/dummy.jpg";
   const classes = useStyles();
 
   return (
@@ -82,7 +85,7 @@ const PropertyCard = props => {
           align="center"
           variant="h2"
         >
-           Price: {product.price}
+           Price: {product.price} {price_type}
           
         </Typography>
       </CardContent>
@@ -96,13 +99,19 @@ const PropertyCard = props => {
             className={classes.statsItem}
             item
           >
-            <AccessTimeIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              Updated 2hr ago
-            </Typography>
+            <Button variant="outlined" color="primary" className={classes.button} href={product.propId}>
+              <ArrowRightIcon />
+              Know More
+            </Button>
+          </Grid>
+          <Grid
+            className={classes.statsItem}
+            item
+          >
+            <Button variant="outlined" color="primary" className={classes.button}>
+              <ShoppingBasketIcon />
+              Add to Wishlist
+            </Button>
           </Grid>
           <Grid
             className={classes.statsItem}
