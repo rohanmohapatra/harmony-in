@@ -42,6 +42,7 @@ THIS INCLUDES ALREADY VISITED SITES
 #	l.append(math.floor((random.random()*3) + 1))
 #############
 
+
 #######Data conversion and training       #property_id,user,action
 #df = pd.DataFrame(sampleDict,columns = ['UID','propertyId','rating'])
 #reader = Reader(rating_scale = (1,3))
@@ -70,9 +71,9 @@ def makeDfFromData(dictList):   #Current model is to convert entire data into df
 
 
 def outputTopK(model,userID,propertyIDs,K):					#Given a list of property IDs, output same list sorted according to user preference
-		l = [(propertyID,model.predict(str(userID),str(propertyID))) for propertyID in propertyIDs]
-		l.sort(key = lambda x: x[-1	],reverse = True)
-		return l[:K]
+		l = [(propertyID,model.predict(userID,propertyID)) for propertyID in propertyIDs]
+		l.sort(key = lambda x: x[-1	].est,reverse = True)
+		return [ele[0] for ele in l[:K]]
 	
 def trainModel(data):
 	trainset = data.build_full_trainset()
