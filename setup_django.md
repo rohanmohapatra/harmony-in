@@ -35,6 +35,7 @@ pip3 install django-cors-headers
 ```
 pip3 install django_filter
 pip3 install django-rest-auth
+pip3 install djangorestframework-jwt
 
 ```
 
