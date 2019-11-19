@@ -72,7 +72,8 @@ def properties_owned_by_user(request):
     Retrieves the properties owned by the request user
     """
     seller = HarmonyUserSerializer(request.user)
-    seller_name = seller.data.username
+    print(seller.data)
+    seller_name = seller.data["username"]
     seller_properties = Property.objects.filter(username=seller_name)
     serializer = PropertySerializer(seller_properties, many=True)
     return Response(serializer.data)
@@ -82,12 +83,16 @@ class PropertyFilter(filters.FilterSet):
     societyName = filters.CharFilter(field_name='societyName', lookup_expr='icontains')
     propertyName = filters.CharFilter(field_name='propertyName', lookup_expr='icontains')
     propertyAddress = filters.CharFilter(field_name='propertyAddress', lookup_expr='icontains')
+    city = filters.CharFilter(field_name="city")
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+    min_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="gte")
+    max_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="lte")
 
     class Meta:
         model = Property
-        fields = ['societyName', 'propertyName', 'propertyAddress', 'max_price', 'min_price']
+        fields = ['societyName', 'propertyName', 'propertyAddress', 'city', 'max_price', 'min_price', 'min_bhk',
+                  'max_bhk']
 
 
 '''
