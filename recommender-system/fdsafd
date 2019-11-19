@@ -1,0 +1,10 @@
+[0;1;32m●[0m mongodb.service - An object/document-oriented database
+   Loaded: loaded (/lib/systemd/system/mongodb.service; enabled; vendor preset: enabled)
+   Active: [0;1;32mactive (running)[0m since Tue 2019-11-19 11:34:31 IST; 17min ago
+     Docs: man:mongod(1)
+ Main PID: 25196 (mongod)
+    Tasks: 24 (limit: 4915)
+   CGroup: /system.slice/mongodb.service
+           └─25196 /usr/bin/mongod --unixSocketPrefix=/run/mongodb --config /etc/mongodb.conf
+
+Nov 19 11:34:31 shailesh-Predator-PH315-51 systemd[1]: Started An object/document-oriented database.
