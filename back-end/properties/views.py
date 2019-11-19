@@ -83,12 +83,16 @@ class PropertyFilter(filters.FilterSet):
     societyName = filters.CharFilter(field_name='societyName', lookup_expr='icontains')
     propertyName = filters.CharFilter(field_name='propertyName', lookup_expr='icontains')
     propertyAddress = filters.CharFilter(field_name='propertyAddress', lookup_expr='icontains')
+    city = filters.CharFilter(field_name="city")
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
+    min_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="gte")
+    max_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="lte")
 
     class Meta:
         model = Property
-        fields = ['societyName', 'propertyName', 'propertyAddress', 'max_price', 'min_price']
+        fields = ['societyName', 'propertyName', 'propertyAddress', 'city', 'max_price', 'min_price', 'min_bhk',
+                  'max_bhk']
 
 
 '''
