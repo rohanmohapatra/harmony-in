@@ -72,7 +72,8 @@ def properties_owned_by_user(request):
     Retrieves the properties owned by the request user
     """
     seller = HarmonyUserSerializer(request.user)
-    seller_name = seller.data.username
+    print(seller.data)
+    seller_name = seller.data["username"]
     seller_properties = Property.objects.filter(username=seller_name)
     serializer = PropertySerializer(seller_properties, many=True)
     return Response(serializer.data)

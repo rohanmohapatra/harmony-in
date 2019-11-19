@@ -12,6 +12,7 @@ class Property(models.Model):
     societyName = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    propertyType = models.CharField(max_length=100, blank=True, null=True)
     moreData = JSONField()
 
     @property
@@ -19,5 +20,5 @@ class Property(models.Model):
         return "prop" + str(self.id).zfill(5)
 
     def __str__(self):
-        return str(self.created) + " " + str(self.id) + " " + self.price + " " + self.bhk
+        return str(self.created) + " " + str(self.id)# + " " + str(self.price) + " " + str(self.bhk)
 
