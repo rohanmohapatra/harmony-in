@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Seller = props => {
+const Rentee = props => {
   const { children } = props;
 
   const classes = useStyles();
@@ -63,8 +63,8 @@ const Seller = props => {
   );
 };
 
-Seller.propTypes = {
+Rentee.propTypes = {
   children: PropTypes.node
 };
 
-export default Seller;
+export default Rentee;

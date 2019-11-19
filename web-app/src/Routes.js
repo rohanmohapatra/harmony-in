@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
-import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout} from './layouts';
+import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout, Rentee as RenteeLayout} from './layouts';
 
 import {
   Home as HomeView,
@@ -13,6 +13,8 @@ import {
   BuyerSignUp as BuyerSignUpView,
   SellerSignIn as SellerSignInView,
   SellerSignUp as SellerSignUpView,
+  RenteeSignIn as RenteeSignInView,
+  RenteeSignUp as RenteeSignUpView,
   UserList as UserListView,
   Typography as TypographyView,
   Icons as IconsView,
@@ -74,10 +76,16 @@ const Routes = () => {
         path="/seller/sign-in"
       />
       <RouteWithLayout
-        component={SellerSignInView}
+        component={RenteeSignInView}
         exact
         layout={MinimalLayout}
-        path="/seller/sign-in"
+        path="/rentee/sign-in"
+      />
+      <RouteWithLayout
+        component={RenteeSignUpView}
+        exact
+        layout={MinimalLayout}
+        path="/rentee/sign-up"
       />
       <RouteWithLayout
         component={SellerAddToPropertyView}

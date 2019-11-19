@@ -5,6 +5,8 @@ export { default as BuyerSignUp } from './BuyerSignUp';
 export { default as SellerSignIn } from './SellerSignIn';
 export { default as SellerSignUp } from './SellerSignUp';
 export { default as SellerAddToProperty } from './SellerAddToProperty';
+export { default as RenteeSignIn } from './RenteeSignIn';
+export { default as RenteeSignUp } from './RenteeSignUp';
 export { default as Icons } from './Icons';
 export { default as NotFound } from './NotFound';
 export { default as ProductList } from './ProductList';

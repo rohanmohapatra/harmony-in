@@ -365,7 +365,7 @@ const Home = props => {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="large" color="primary" className={classes.joinNowButton} href="/rentee/login">
+              <Button size="large" color="primary" className={classes.joinNowButton} href="/rentee/sign-in">
                 Join Now
               </Button>
             </CardActions>
