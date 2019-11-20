@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import validate from 'validate.js';
+import clsx from 'clsx';
+import sha1 from 'sha1';
 import { makeStyles } from '@material-ui/styles';
 import {
   Grid,
@@ -15,14 +17,40 @@ import {
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import axios from 'axios';
+
+
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
+import { amber, green } from '@material-ui/core/colors';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
+
+const variantIcon = {
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
+  info: InfoIcon,
+};
+
+
 const schema = {
-  firstName: {
+  firstname: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 32
     }
   },
-  lastName: {
+  lastname: {
+    presence: { allowEmpty: false, message: 'is required' },
+    length: {
+      maximum: 32
+    }
+  },
+  username: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 32
@@ -40,12 +68,70 @@ const schema = {
     length: {
       maximum: 128
     }
-  },
-  policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true
   }
 };
+const useStyles1 = makeStyles(theme => ({
+  success: {
+    backgroundColor: green[600],
+  },
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  info: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  warning: {
+    backgroundColor: amber[700],
+  },
+  icon: {
+    fontSize: 20,
+  },
+  iconVariant: {
+    opacity: 0.9,
+    marginRight: theme.spacing(1),
+  },
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
+function MySnackbarContentWrapper(props) {
+  const classes = useStyles1();
+  const { className, message, onClose, variant, ...other } = props;
+  const Icon = variantIcon[variant];
+
+  return (
+    <SnackbarContent
+      className={clsx(classes[variant], className)}
+      aria-describedby="client-snackbar"
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={clsx(classes.icon, classes.iconVariant)} />
+          {message}
+        </span>
+      }
+      action={[
+        <IconButton key="close" aria-label="close" color="inherit" onClick={onClose}>
+          <CloseIcon className={classes.icon} />
+        </IconButton>,
+      ]}
+      {...other}
+    />
+  );
+}
+
+MySnackbarContentWrapper.propTypes = {
+  className: PropTypes.string,
+  message: PropTypes.string,
+  onClose: PropTypes.func,
+  variant: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
+};
+
+const useStyles2 = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,7 +152,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(/images/auth.jpg)',
+    backgroundImage: 'url(/images/login/buyer.png)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'
@@ -147,10 +233,23 @@ const BuyerSignUp = props => {
 
   const [formState, setFormState] = useState({
     isValid: false,
-    values: {},
+    values: {'user_type':'customer'},
     touched: {},
     errors: {}
   });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -187,7 +286,24 @@ const BuyerSignUp = props => {
 
   const handleBuyerSignUp = event => {
     event.preventDefault();
-    history.push('/');
+    //history.push('/');
+    //console.log(formState.values);
+    //var data = {
+    //  "username" : formState.values.username,
+    //  "password" : sha1(formState.values.password)
+    //};
+    formState.values.password = sha1(formState.values.password);
+    console.log(formState.values);
+    axios.post("http://localhost:8000/api/v1/users/register/", formState.values)
+    .then(function(response){
+      console.log(response);
+      history.push("/buyer/sign-in");
+    })
+    .catch(function (response) {
+      //handle error
+      console.log(response);
+      setOpen(true);
+    });
   };
 
   const hasError = field =>
@@ -206,27 +322,6 @@ const BuyerSignUp = props => {
         >
           <div className={classes.quote}>
             <div className={classes.quoteInner}>
-              <Typography
-                className={classes.quoteText}
-                variant="h1"
-              >
-                Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-                they sold out High Life.
-              </Typography>
-              <div className={classes.person}>
-                <Typography
-                  className={classes.name}
-                  variant="body1"
-                >
-                  Takamaru Ayako
-                </Typography>
-                <Typography
-                  className={classes.bio}
-                  variant="body2"
-                >
-                  Manager at inVision
-                </Typography>
-              </div>
             </div>
           </div>
         </Grid>
@@ -261,30 +356,44 @@ const BuyerSignUp = props => {
                 </Typography>
                 <TextField
                   className={classes.textField}
-                  error={hasError('firstName')}
+                  error={hasError('firstname')}
                   fullWidth
                   helperText={
-                    hasError('firstName') ? formState.errors.firstName[0] : null
+                    hasError('firstname') ? formState.errors.firstname[0] : null
                   }
                   label="First name"
-                  name="firstName"
+                  name="firstname"
                   onChange={handleChange}
                   type="text"
-                  value={formState.values.firstName || ''}
+                  value={formState.values.firstname || ''}
                   variant="outlined"
                 />
                 <TextField
                   className={classes.textField}
-                  error={hasError('lastName')}
+                  error={hasError('lastname')}
                   fullWidth
                   helperText={
-                    hasError('lastName') ? formState.errors.lastName[0] : null
+                    hasError('lastname') ? formState.errors.lastname[0] : null
                   }
                   label="Last name"
-                  name="lastName"
+                  name="lastname"
                   onChange={handleChange}
                   type="text"
-                  value={formState.values.lastName || ''}
+                  value={formState.values.lastname || ''}
+                  variant="outlined"
+                />
+                <TextField
+                  className={classes.textField}
+                  error={hasError('username')}
+                  fullWidth
+                  helperText={
+                    hasError('username') ? formState.errors.username[0] : null
+                  }
+                  label="Username"
+                  name="username"
+                  onChange={handleChange}
+                  type="text"
+                  value={formState.values.username || ''}
                   variant="outlined"
                 />
                 <TextField
@@ -315,6 +424,7 @@ const BuyerSignUp = props => {
                   value={formState.values.password || ''}
                   variant="outlined"
                 />
+                {/*
                 <div className={classes.policy}>
                   <Checkbox
                     checked={formState.values.policy || false}
@@ -345,6 +455,7 @@ const BuyerSignUp = props => {
                     {formState.errors.policy[0]}
                   </FormHelperText>
                 )}
+                */}
                 <Button
                   className={classes.BuyerSignUpButton}
                   color="primary"
@@ -363,12 +474,24 @@ const BuyerSignUp = props => {
                   Have an account?{' '}
                   <Link
                     component={RouterLink}
-                    to="/sign-in"
+                    to="/Buyer/sign-in"
                     variant="h6"
                   >
                     Sign in
                   </Link>
                 </Typography>
+                <Snackbar
+                  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                >
+                <MySnackbarContentWrapper
+                  variant="error"
+                  className={classes.margin}
+                  message="Username or Password might be wrong!"
+                />
+              </Snackbar>
               </form>
             </div>
           </div>

@@ -27,7 +27,7 @@ urlpatterns = [
     path('api/v1/properties/<int:pk>/', prop_views.property_detail),
     path('api/v1/propIds/', prop_views.propId_list),
     path("api/v1/properties_filter", prop_views.PropertyList.as_view(), name="PropertyList"),
-    path("api/v1/properties/seller", prop_views.properties_owned_by_user),
+    path("api/v1/properties/user", prop_views.properties_owned_by_user),
     #path('api/v1/users/register/', views.userList.createuser),
     #path('api/v1/users/login/',views.loginView.loginuser),
     path("api/v1/users/logout/",views.logoutuser),

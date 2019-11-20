@@ -122,7 +122,7 @@ def harmonyCurrentUser(request):
     serializer = HarmonyUserSerializer(request.user)
     return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['GET'])
 def harmonyGetUserDetails(request):
     serializer = HarmonyUserSerializer(request.user)
     #print(user.objects.filter(username = serializer.data['username']))

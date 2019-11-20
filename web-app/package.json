@@ -43,6 +43,7 @@
     "react-perfect-scrollbar": "^1.5.3",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
+    "react-swipeable-views": "^0.13.3",
     "recompose": "^0.30.0",
     "sha1": "^1.1.1",
     "underscore": "^1.9.1",

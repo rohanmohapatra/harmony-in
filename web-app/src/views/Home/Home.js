@@ -14,7 +14,8 @@ import {
   CardActionArea,
   CardContent,
   CardActions,
-  CardMedia
+  CardMedia,
+  Divider
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -123,6 +124,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   textField: {
+    fontFamily: 'Montserrat',
+    fontWeight:'500',  
     marginTop: theme.spacing(2)
   },
   HomeButton: {
@@ -168,13 +171,16 @@ const useStyles = makeStyles(theme => ({
       padding: '2%'
     },
     card: {
-      
+      fontFamily: 'Montserrat',
+        fontWeight:'500',  
     },
     cardImage: {
       height: '30vh'
     },
     joinNowButton: {
-      backgroundColor : theme.palette.warning.main,
+      fontFamily: 'Montserrat',
+      fontWeight:'500',  
+      backgroundColor : theme.palette.warning.light,
       borderRadius: 40,
       color: theme.palette.white
     },
@@ -184,6 +190,19 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.white,
        
   },
+  team:{
+    backgroundColor : "white",
+    marginTop: 30
+  },
+  teamTitle: {
+    fontFamily: 'Montserrat',
+      fontWeight:'900',  
+      color: "#303030",
+      padding : 45
+  },
+  teamImage: {
+    width: 300
+  }
     
 }));
 
@@ -251,7 +270,9 @@ const Home = props => {
         top: 350,
         marginLeft: '12%',
         padding: 30,
-        fontSize:30
+        fontSize:30,
+        fontFamily: 'Montserrat',
+        fontWeight:'500',  
       },
     }))(Button);
     
@@ -365,12 +386,274 @@ const Home = props => {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="large" color="primary" className={classes.joinNowButton} href="/rentee/login">
+              <Button size="large" color="primary" className={classes.joinNowButton} href="/rentee/sign-in">
                 Join Now
               </Button>
             </CardActions>
           </Card>
         </Grid>
+        <Grid
+        className={classes.team}
+        container
+      > </Grid>
+        <Divider />
+        <Grid
+        className={classes.team}
+        container
+      > 
+      <Grid
+          item
+          lg={12}
+        >
+        <Typography gutterBottom variant="h1" component="h2" className={classes.teamTitle}>
+                  THE TEAM
+        </Typography>
+        <br />
+        <Divider />
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Rohan.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Rohan Mohapatra
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Jayasurya.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Jayasurya Seenuvasan
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Shailesh.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Shailesh Sridhar
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Saahitya.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Saahitya E
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Shailendra.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Shailendra Hegde
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Swati.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Swathi Reddy
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Saahil.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Saahil Jain
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Sailesh.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Sailesh Gaddalay
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Kaifee.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Shadan Alam Kaifee
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Sharath.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Sharath N
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+        <Grid
+          className={classes.quoteContainer}
+          item
+          lg={2}
+        >
+          <Card className={classes.card}>
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="300"
+                image="/images/team/Sharmishta.png"
+                title="Contemplative Reptile"
+                className={classes.teamImage}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h4" component="h2">
+                  Sharmistha Singh
+                </Typography>
+
+              </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
       </Grid>
     </div>
   );
