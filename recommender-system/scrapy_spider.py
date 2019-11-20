@@ -26,6 +26,7 @@ class QuotesSpider(scrapy.Spider):
 			priceContainer = container.css("div.m-srp-card__info"); 
 			price = priceContainer.css("div.m-srp-card__price::text").get() 
 		#	print(text)
+			imgURL = container.css("img::attr(data-src)")[0].extract()
 			
 			descContainer = container.css("div.m-srp-card__desc")
 			title = descContainer.css("span.m-srp-card__title::text").getall()
@@ -43,7 +44,9 @@ class QuotesSpider(scrapy.Spider):
 					"title":title,
 					"bhk":BHK,
 					"societyName":socName,
+					"imgURL":imgURL,
 					"moreData":fieldList,
+					
 					
 					}
 		
