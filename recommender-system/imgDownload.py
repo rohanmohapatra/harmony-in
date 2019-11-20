@@ -20,6 +20,7 @@ folderPath = "/home/shailesh/Documents/sem7/SE/harmony-in/LocationData"
 for filePath in os.listdir(folderPath):
 #filePath = "/home/shailesh/Documents/sem7/SE/harmony-in/LocationData/Bangalore.json"
 #	fullPath = 
+	
 	propertyList = json.loads(open(folderPath+'/'+filePath).read())
 	# This is the image url.
 	counter = 0
