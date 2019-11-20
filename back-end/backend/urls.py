@@ -19,6 +19,7 @@ from properties import views as prop_views
 from login import views
 from recommender_system import views as rec_views 
 from rest_framework_jwt.views import obtain_jwt_token
+from cart import views as cart_views
 
 
 urlpatterns = [
@@ -40,4 +41,7 @@ urlpatterns = [
     path('api/v1/users/login/',obtain_jwt_token),
     path('api/v1/users/authenticate', views.harmonyCurrentUser),
     path('api/v1/users/details', views.harmonyGetUserDetails),
+    path('api/v1/cart/add/', cart_views.add_to_cart),
+    #path('api/v1/cart/delete/<int:pk>', cart_views.remove),
+    path('api/v1/cart/', cart_views.get_cart)
 ]

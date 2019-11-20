@@ -5,7 +5,7 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { List, ListItem, Button, colors } from '@material-ui/core';
+import { List, ListItem, Button, colors, FormControl, Divider } from '@material-ui/core';
 import {
   Grid,
   IconButton,
@@ -66,6 +66,7 @@ const Filter = props => {
   const { pages, className, ...rest } = props;
   const [airQuality, setAirQuality] = useState();
   const [traffic, setTraffic] = useState();
+  const [city, setCity] = useState();
   const [formState, setFormState] = useState({
     isValid: false,
     values: {},
@@ -96,6 +97,11 @@ const Filter = props => {
     setAirQuality(event.target.value);
     console.log(event.target.value);
   }
+  const handleCityClick = event => {
+    event.persist();
+    setCity(event.target.value);
+    console.log(event.target.value);
+  }
   const handleTrafficClick = event => {
     event.persist();
     setTraffic(event.target.value);
@@ -109,12 +115,15 @@ const Filter = props => {
         "cost": [formState.values.CostLowerLimit, formState.values.CostHigherLimit],
         "sqFeetArea":[formState.values.SquareFeetAreaLowerLimit, formState.values.SquareFeetAreaHigherLimit],
         "airQuality": airQuality,
-        "traffic" : traffic
+        "traffic" : traffic,
+        "city" : city
       }
     };
     localStorage.setItem('filters', JSON.stringify(filter));
   }
-
+  const handleFiltersClear = () =>{
+    localStorage.removeItem("filters");
+  }
   return (
     <List
       {...rest}
@@ -177,6 +186,7 @@ const Filter = props => {
             container
             spacing={2}
           >
+          {/*
             <Grid item>
                 <Typography
                       align="left"
@@ -197,6 +207,7 @@ const Filter = props => {
                   variant="outlined"
                 />
             </Grid>
+        */}
             <Grid item>
             <TextField
                   className={classes.textField}
@@ -245,7 +256,7 @@ const Filter = props => {
                 />
             </Grid>
         </Grid>
-        <Grid
+        {/*<Grid
             container
             spacing={4}
           >
@@ -302,11 +313,47 @@ const Filter = props => {
               <MenuItem value={"High"}>High</MenuItem>
             </Select>
             </Grid>
-        </Grid>
+        </Grid>*/}
+        <Grid
+            container
+            spacing={4}
+          >
+            <Grid item>
+                <Typography
+                      align="left"
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      City
+                </Typography>
+            </Grid>
+            <Grid item>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={city}
+              onChange={handleCityClick}
+              labelWidth={10}
+            >
+              <option value={""}></option>
+                            <option value={"bangalore"}>Bangalore</option>
+                            <option value={"mumbai"}>Mumbai</option>
+                            <option value={"patna"}>Patna</option>
+                            <option value={"shillong"}>Shillong</option>
+                            <option value={"jaipur"}>Jaipur</option>
+                            <option value={"kolkata"}>Kolkata</option>
+                            <option value={"hyderabad"}>Hyderabad</option>
+                            <option value={"ranchi"}>Ranchi</option>
+                            <option value={"bhopal"}>Bhopal</option>
+                            <option value={"kochi"}>Kochi</option>
+            </Select>
+                </Grid>
+                </Grid>
         <Grid
             container
             spacing={2}
           >
+            <Divider />
         <Button
           color="primary"
           onClick={handleFilters}
@@ -314,6 +361,16 @@ const Filter = props => {
           variant="contained"
         >
           Apply
+        </Button>
+        <Divider />
+        <Button
+          color="primary"
+          onClick={handleFiltersClear}
+          size="large"
+          variant="contained"
+          outlined
+        >
+          Clear
         </Button>
         </Grid>
     </List>

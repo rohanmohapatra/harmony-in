@@ -63,8 +63,10 @@ def extractPropListFromResult(result):
 	return l
 
 def makeDfFromData(dictList):   #Current model is to convert entire data into df from scratch, might need to change
-	l = [d['user','property_id','rating'] for d in dictList]
-	df = pd.DataFrame(l,columns = ['UID','propertyId','rating'])
+	print(dictList)
+	l = [[d['user'],d['property_id'],d['action']] for d in dictList]
+	print(l)
+	df = pd.DataFrame(l,columns = ['UID','propertyId','action'])
 	reader = Reader(rating_scale = (1,3))
 	data = Dataset.load_from_df(df, reader)	
 	return data

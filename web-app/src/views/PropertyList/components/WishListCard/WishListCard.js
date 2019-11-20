@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -19,8 +19,10 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
+import ChatIcon from '@material-ui/icons/Chat';
 import CloseIcon from '@material-ui/icons/Close';
 import { amber, green } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -111,7 +113,12 @@ const useStyles2 = makeStyles(theme => ({
 
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    width : 100
+  },
+  card:{
+    width: 250
+  },
   imageContainer: {
  
     margin: '0 auto',
@@ -135,16 +142,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PropertyCard = props => {
+const WishListCard = props => {
   const { className, product, price_type, ...rest } = props;
   product["imageUrl"] = "/images/dummy.jpg";
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [eOpen, setEOpen] = React.useState(false);
+  const [productD, setProductD] = React.useState({});
   const handleClick = () => {
     setOpen(true);
   };
-
+  useEffect(() =>{
+    const fetchData = async () => {
+      console.log(product.propertyId.split(/[0]+/));
+      var output = product.propertyId.split(/[0]+/).pop();
+      console.log(parseInt(output));
+      const result = await axios({
+        url: 'http://localhost:8000/api/v1/properties/'+parseInt(output),
+        headers: {
+          Authorization: 'JWT ' + localStorage.getItem("token") //the token is a variable which holds the token
+        }
+      });
+      setProductD(result.data);
+    };
+    fetchData();
+  }, []);  
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -153,73 +175,23 @@ const PropertyCard = props => {
     setOpen(false);
     setEOpen(false);
   };
-  const addToWishlist = (id, event) =>{
-    var nData = {"propertyId" : id};
-    const fetchData = async () => {
-
-      const result = await axios({
-        method: 'post',
-        url: 'http://localhost:8000/api/v1/cart/add/',
-        headers: {
-          Authorization: 'JWT ' + localStorage.getItem("token") //the token is a variable which holds the token
-        },
-        data :nData
-      });
-      setOpen(true);
-    };
-    if(localStorage.getItem("token"))
-      fetchData();
-
-
-    if(localStorage.getItem("username")){
-        var data = {
-          action : 3,
-          user : localStorage.getItem("username"),
-          property_id : id
-        }
-        var result = axios.post("http://localhost:5000/user_actions", data);
-        console.log(result.data);
-      }
-  }
   return (
     <Card
-      {...rest}
-      className={clsx(classes.root, className)}
+      className={classes.card}
     >
       <CardContent>
-        <div className={classes.imageContainer}>
-          <img
-            alt="Product"
-            className={classes.image}
-            src={product.imageUrl}
-          />
-        </div>
         <Typography
           align="center"
           gutterBottom
           variant="h4"
         >
-          {product.propertyName}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+          {productD.propertyName}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         </Typography>
         <Typography
           align="center"
           variant="body1"
         >
-          {product.propertyAddress}
-          
-        </Typography>
-        <Typography
-          align="center"
-          variant="body1"
-        >
-           BHK: {product.bhk}
-          
-        </Typography>
-        <Typography
-          align="center"
-          variant="h2"
-        >
-           Price: {product.price} {price_type}
+          {productD.propertyType=="buy" ? "Buy" : "Rent" }
           
         </Typography>
       </CardContent>
@@ -233,65 +205,17 @@ const PropertyCard = props => {
             className={classes.statsItem}
             item
           >
-            <Button variant="outlined" color="primary" className={classes.button} href={product.propId}>
-              <ArrowRightIcon />
-              Know More
-            </Button>
-          </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <Button variant="outlined" color="primary" className={classes.button} onClick ={(event) => {addToWishlist(product.propId, event)}}>
-              <ShoppingBasketIcon />
-              Add to Wishlist
-            </Button>
-          </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalDownloads} Views
-            </Typography>
+          <ChatIcon />
           </Grid>
         </Grid>
       </CardActions>
-      <Snackbar
-                  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}
-                  open={eOpen}
-                  autoHideDuration={6000}
-                  onClose={handleClose}
-                >
-                <MySnackbarContentWrapper
-                  variant="error"
-                  className={classes.margin}
-                  message="Username or Password might be wrong!"
-                />
-              </Snackbar>
-              <Snackbar
-                  anchorOrigin={{vertical: 'bottom',horizontal: 'right'}}
-                  open={open}
-                  autoHideDuration={6000}
-                  onClose={handleClose}
-                >
-                <MySnackbarContentWrapper
-                  variant="success"
-                  className={classes.margin}
-                  message="Added to Wishlist"
-                />
-              </Snackbar>
     </Card>
   );
 };
 
-PropertyCard.propTypes = {
+WishListCard.propTypes = {
   className: PropTypes.string,
   product: PropTypes.object.isRequired
 };
 
-export default PropertyCard;
+export default WishListCard;

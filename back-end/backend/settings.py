@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'login',
     'recommender_system',
+    'cart'
 ]
 
 

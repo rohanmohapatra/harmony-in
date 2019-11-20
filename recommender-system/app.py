@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import  request, jsonify
 from flask_pymongo import  PyMongo
+from flask_cors import CORS, cross_origin
 import recommenderSystem2 as rs
 import json
 
@@ -22,6 +23,7 @@ def is_higher_priority_action(curr_action, old_action):
     return curr_action>old_action
 
 @app.route("/user_actions", methods=['POST'])
+@cross_origin()
 def user_actions():
     user_actions = mongo.db.user_actions
 #    req = request.get_json()
@@ -40,6 +42,7 @@ def user_actions():
     return "Whatever"
 
 @app.route("/user_recommendations/<user>", methods=['POST'])
+@cross_origin()
 def user_recommendations(user):
     user_actions = mongo.db.user_actions
     tr_data = []

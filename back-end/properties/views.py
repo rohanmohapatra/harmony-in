@@ -41,6 +41,7 @@ def propId_list(request):
 
 
 @api_view(['GET', ' PUT', 'DELETE'])
+@permission_classes([permissions.AllowAny])
 def property_detail(request, pk):
     """
     Retrieve, update or delete a property. 
