@@ -8,6 +8,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
+import stripe
+
+
+
 
 # Create your views here.
 @api_view(['GET', 'POST'])
@@ -78,6 +82,28 @@ def properties_owned_by_user(request):
     serializer = PropertySerializer(seller_properties, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def stripe_create_checkout_session(request, pk):
+    stripe.api_key = 'sk_test_a93sjfg5VrDgKwE3Qd6mM8HU00OGol35p5'
+    try:
+        property = Property.objects.get(id=pk)
+    except Property.DoesNotExist:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    stripe_line_item = {
+        'name': property.propertyName,
+        'description': property.propertyAddress,
+        'amount': property.price*100,
+        'currency': 'inr',
+        'quantity': 1,
+    }
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[stripe_line_item],
+        success_url='https://google.com',
+        cancel_url='https://google.com',
+    )
+    return Response(session.stripe_id)
 
 class PropertyFilter(filters.FilterSet):
     societyName = filters.CharFilter(field_name='societyName', lookup_expr='icontains')

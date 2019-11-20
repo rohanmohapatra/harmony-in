@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/properties/', prop_views.properties_list),
     path('api/v1/properties/<int:pk>/', prop_views.property_detail),
+    path('api/v1/properties/payment/<int:pk>', prop_views.stripe_create_checkout_session),
     path('api/v1/propIds/', prop_views.propId_list),
     path("api/v1/properties_filter", prop_views.PropertyList.as_view(), name="PropertyList"),
     path("api/v1/properties/user", prop_views.properties_owned_by_user),
