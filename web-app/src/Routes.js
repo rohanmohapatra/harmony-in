@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
 import { RouteWithLayout } from './components';
-import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout, Rentee as RenteeLayout} from './layouts';
+import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout, Rentee as RenteeLayout, Buyer as BuyerLayout} from './layouts';
 import axios from 'axios';
 import {
   Home as HomeView,
@@ -26,7 +26,12 @@ import {
   NotFound as NotFoundView,
   SellerAddToProperty as SellerAddToPropertyView,
   RenteeAddToProperty as RenteeAddToPropertyView,
-  WorkInProgress as WorkInProgressView
+  WorkInProgress as WorkInProgressView,
+  PaymentSignIn as PaymentSignInView,
+  PaymentAddLandlord as PaymentAddLandlordView,
+  PropertyPage as PropertyPageView,
+  Analytics as AnalyticsView,
+
 } from './views';
 
 const Routes = (props) => {
@@ -123,6 +128,24 @@ const Routes = (props) => {
         layout={RenteeLayout}
         path="/rentee/properties"
       />
+       <RouteWithLayout
+        component={AnalyticsView}
+        exact
+        layout={SellerLayout}
+        path="/seller/analytics"
+      />
+      <RouteWithLayout
+        component={PaymentSignInView}
+        exact
+        layout={MinimalLayout}
+        path="/payment/sign-in"
+      />
+      <RouteWithLayout
+        component={PaymentAddLandlordView}
+        exact
+        layout={MinimalLayout}
+        path="/payment/addlandlord"
+      />
 
       <RouteWithLayout
         component={DashboardView}
@@ -186,10 +209,11 @@ const Routes = (props) => {
       />
       {propertyIds.map(propertyId => (
             <RouteWithLayout
-            component={WorkInProgressView}
+            component={PropertyPageView}
             exact
             key={propertyId}
-            layout={MinimalLayout}
+            propertyId = {propertyId}
+            layout={BuyerLayout}
             path={propertyId}
           />
         ))}

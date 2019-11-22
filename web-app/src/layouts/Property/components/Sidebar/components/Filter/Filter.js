@@ -51,6 +51,10 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginTop: theme.spacing(2)
   },
+  filterButtons :{
+    marginTop: theme.spacing(2),
+    marginRight : 7
+  }
 }));
 
 const CustomRouterLink = forwardRef((props, ref) => (
@@ -123,6 +127,9 @@ const Filter = props => {
   }
   const handleFiltersClear = () =>{
     localStorage.removeItem("filters");
+    //setTraffic("");
+    //setAirQuality("");
+    
   }
   return (
     <List
@@ -207,7 +214,7 @@ const Filter = props => {
                   variant="outlined"
                 />
             </Grid>
-        */}
+        
             <Grid item>
             <TextField
                   className={classes.textField}
@@ -219,7 +226,9 @@ const Filter = props => {
                   variant="outlined"
                 />
             </Grid>
+            */}
         </Grid>
+        
         <Grid
             container
             spacing={2}
@@ -256,7 +265,7 @@ const Filter = props => {
                 />
             </Grid>
         </Grid>
-        {/*<Grid
+        <Grid
             container
             spacing={4}
           >
@@ -277,11 +286,13 @@ const Filter = props => {
               onChange={handleAirQualityClick}
               labelWidth={10}
             >
-              <MenuItem value={"Low"}>
-                <em>Low</em>
+              <MenuItem value={""}>
               </MenuItem>
-              <MenuItem value={"Medium"}>Medium</MenuItem>
-              <MenuItem value={"High"}>High</MenuItem>
+              <MenuItem value={"low"}>
+                Low
+              </MenuItem>
+              <MenuItem value={"moderate"}>Medium</MenuItem>
+              <MenuItem value={"high"}>High</MenuItem>
             </Select>
             </Grid>
         </Grid>
@@ -306,14 +317,16 @@ const Filter = props => {
               onChange={handleTrafficClick}
               labelWidth={10}
             >
-              <MenuItem value={"Low"}>
+              <MenuItem value={""}>
+              </MenuItem>
+              <MenuItem value={"low"}>
                 <em>Low</em>
               </MenuItem>
-              <MenuItem value={"Medium"}>Medium</MenuItem>
-              <MenuItem value={"High"}>High</MenuItem>
+              <MenuItem value={"medium"}>Medium</MenuItem>
+              <MenuItem value={"high"}>High</MenuItem>
             </Select>
             </Grid>
-        </Grid>*/}
+        </Grid>
         <Grid
             container
             spacing={4}
@@ -335,8 +348,9 @@ const Filter = props => {
               onChange={handleCityClick}
               labelWidth={10}
             >
-              <option value={""}></option>
+                            <option value={""}></option>
                             <option value={"bangalore"}>Bangalore</option>
+                            <option value={"chennai"}>Chennai</option>
                             <option value={"mumbai"}>Mumbai</option>
                             <option value={"patna"}>Patna</option>
                             <option value={"shillong"}>Shillong</option>
@@ -359,16 +373,18 @@ const Filter = props => {
           onClick={handleFilters}
           size="large"
           variant="contained"
+          className={classes.filterButtons}
         >
           Apply
         </Button>
-        <Divider />
+
         <Button
           color="primary"
           onClick={handleFiltersClear}
           size="large"
           variant="contained"
           outlined
+          className={classes.filterButtons}
         >
           Clear
         </Button>

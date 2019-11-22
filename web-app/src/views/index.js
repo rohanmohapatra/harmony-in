@@ -20,3 +20,7 @@ export { default as Typography } from './Typography';
 export { default as UserList } from './UserList';
 export { default as Home } from './Home';
 export { default as WorkInProgress} from './WorkInProgress';
+export { default as PaymentSignIn} from './PaymentSignIn';
+export { default as PaymentAddLandlord } from './PaymentAddLandlordDetails';
+export { default as PropertyPage } from './PropertyPage';
+export { default as Analytics } from './Analytics';

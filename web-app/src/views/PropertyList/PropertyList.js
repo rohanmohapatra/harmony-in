@@ -297,12 +297,14 @@ const PropertyList = () => {
           var min_price = (data.filters.cost[0] != null) ? data.filters.cost[0] : '';
           var min_bhk = (data.filters.bhk[0] != null) ? data.filters.bhk[0] : '';
           var max_bhk = (data.filters.bhk[1] != null) ? data.filters.bhk[1] : '';
+          var traffic = (data.filters.traffic != undefined) ? data.filters.traffic : '';
+          var airQuality = (data.filters.airQuality != undefined) ? data.filters.airQuality : '';
           var host = 'localhost'
           var landingPage = this;
           var apiBaseUrl = '/api/v1/properties_filter?';
           var apiBasePort = '8000';
           const result = await axios({
-              url: 'http://localhost:8000'+apiBaseUrl + "societyName=&propertyName=&propertyAddress=&"+"city="+city+"&max_price="+max_price+"&min_price="+min_price+"&min_bhk="+min_bhk+"&max_bhk="+max_bhk,
+              url: 'http://localhost:8000'+apiBaseUrl + "societyName=&propertyName=&propertyAddress=&"+"city="+city+"&max_price="+max_price+"&min_price="+min_price+"&min_bhk="+min_bhk+"&max_bhk="+max_bhk+"&traffic="+traffic+"&airQuality="+airQuality,
             });
             if(result.status === 200){
               console.log("Status is 200")

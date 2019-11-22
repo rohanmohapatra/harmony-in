@@ -1,8 +1,9 @@
 from flask import Flask
-from flask import  request, jsonify
+from flask import  request, jsonify, send_file
 from flask_pymongo import  PyMongo
 from flask_cors import CORS, cross_origin
 import recommenderSystem2 as rs
+import requests
 import json
 
 app = Flask(__name__)
@@ -69,23 +70,45 @@ def user_actions():
 #    new_user_action = user_actions.find_one({'_id': user_actions_id })
     return "Whatever"
 
-@app.route("/user_recommendations/<user>", methods=['POST'])
+@app.route("/user_recommendations/<user>", methods=['GET'])
 @cross_origin()
 def user_recommendations(user):
     user_actions = mongo.db.user_actions
     tr_data = []
-    output = request.json['property_list']
+    output = requests.get('http://localhost:8000/api/v1/propIds').text
+    output = json.loads(output)
+    print(output, type(output))
     output = [propIDtoInt(property_id) for property_id in output]
     user_int = userIDtoInt(user)
     for s in user_actions.find({'user_int':user_int}):
         tr_data.append({'user' : s['user_int'], 'property_id' : s['property_int'], 'action': s['action']})
     df = rs.makeDfFromData(tr_data)
     model = rs.trainModel(df)
-    output = rs.outputTopK(model,user,output,len(output))
-    output = [InttoPropID(Int) for Int in output]
-    return jsonify({'result' : output})
+    output = rs.outputTopK(model,user,output,7)
+    propOutput = [json.loads(requests.get('http://localhost:8000/api/v1/properties/'+str(Int)).text) for Int in sorted(output)]
+    print(propOutput)
+    output = [InttoPropID(Int) for Int in sorted(output)]
+    return jsonify({'result' : propOutput})
 
-
+@app.route("/recommender/hover_click",methods=['POST'])
+@cross_origin()
+def returnPropHoverClick():
+    properties = request.json
+    propIds = [i["propId"] for i in properties]
+    propNames = [i["propertyName"] for i in properties]
+    final = []
+    user_actions = mongo.db.user_actions
+    for each,name in zip(propIds,propNames):
+        data ={}
+        data["propId"] = each
+        data["propName"] = name
+        property_int = propIDtoInt(each)
+        hover_count = user_actions.find({'property_int':property_int,'action':1}).count()
+        data["hovers"] = hover_count
+        click_count = user_actions.find({'property_int':property_int,'action':2}).count()
+        data["clicks"] = click_count
+        final.append(data)
+    return jsonify(final)
 @app.route("/prop_id/total_hovers",methods=['POST'])
 @cross_origin()
 def returnHoverCount():
@@ -93,7 +116,7 @@ def returnHoverCount():
     property_int = propIDtoInt(property_id)
     user_actions = mongo.db.user_actions
     hover_count = user_actions.find({'property_int':property_int,'action':1}).count()
-    return hover_count
+    return jsonify({"count":hover_count})
 
 @app.route("/prop_id/total_clicks",methods=['POST'])
 @cross_origin()
@@ -102,7 +125,15 @@ def returnclickCount():
     property_int = propIDtoInt(property_id)
     user_actions = mongo.db.user_actions
     click_count = user_actions.find({'property_int':property_int,'action':2}).count()
-    return click_count
+    return jsonify({"count":click_count})
+
+@app.route("/recommender/get_image/<property_id>",methods=["GET"])
+@cross_origin()
+def get_image(property_id):
+    images = mongo.db.images
+    image_url = images.find_one({"_id" : property_id})
+    print(image_url["url"])
+    return send_file(image_url['url'],mimetype='image/jpg')
 
 #@app.route("/user_recommendations/propList/<users>", methods=['POST'])
 #def preference_sort(user):

@@ -115,11 +115,12 @@ class PropertyFilter(filters.FilterSet):
     max_price = filters.NumberFilter(field_name="price", lookup_expr='lte')
     min_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="gte")
     max_bhk = filters.NumberFilter(field_name="bhk", lookup_expr="lte")
-
+    traffic = filters.CharFilter(field_name='traffic', lookup_expr='icontains')
+    airQuality = filters.CharFilter(field_name='airQuality', lookup_expr='icontains')
     class Meta:
         model = Property
         fields = ['societyName', 'propertyName', 'propertyAddress', 'city', 'max_price', 'min_price', 'min_bhk',
-                  'max_bhk']
+                  'max_bhk', 'traffic', 'airQuality']
 
 
 '''

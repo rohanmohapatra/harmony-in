@@ -50,6 +50,17 @@ const useStyles = makeStyles(theme => ({
       display: 'none'
     }
   },
+  paymentContainer: {
+    backgroundColor: theme.palette.neutral,
+    height: 400,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundImage: 'url(/images/payments.png)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
+  },
   quote: {
     backgroundColor: theme.palette.neutral,
     height: '100%',
@@ -202,6 +213,26 @@ const useStyles = makeStyles(theme => ({
   },
   teamImage: {
     width: 300
+  },
+  paymentButton: {
+    position: 'relative',
+        top: 80,
+        padding: 20,
+        fontSize:20,
+        fontFamily: 'Montserrat',
+        fontWeight:'500', 
+        color: theme.palette.white,
+        borderColor: theme.palette.white,
+        '&:hover': {
+          backgroundColor: theme.palette.white,
+          borderColor: theme.palette.warning.dark,
+          color: theme.palette.warning.light
+        },
+        borderRadius: 50
+  },
+  cardTitle :{
+    fontFamily: 'Montserrat',
+      fontWeight:'500',  
   }
     
 }));
@@ -312,11 +343,11 @@ const Home = props => {
                 component="img"
                 alt="Contemplative Reptile"
                 height="500"
-                image="/images/cards/seller.jpeg"
+                image="/images/cards/seller_new.png"
                 title="Contemplative Reptile"
               />
               <CardContent>
-                <Typography gutterBottom variant="h4" component="h2">
+                <Typography gutterBottom variant="h4" component="h2" className={classes.cardTitle}>
                   Are You a Seller?
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -343,11 +374,11 @@ const Home = props => {
                 component="img"
                 alt="Contemplative Reptile"
                 height="500"
-                image="/images/cards/buyer.png"
+                image="/images/cards/buyer_new.png"
                 title="Contemplative Reptile"
               />
               <CardContent>
-                <Typography gutterBottom variant="h4" component="h2">
+                <Typography gutterBottom variant="h4" component="h2" className={classes.cardTitle}>
                   Are You Looking for a Property?
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -373,11 +404,11 @@ const Home = props => {
                 component="img"
                 alt="Contemplative Reptile"
                 height="500"
-                image="/images/cards/rentee.png"
+                image="/images/cards/rentee_new.png"
                 title="Contemplative Reptile"
               />
               <CardContent>
-                <Typography gutterBottom variant="h4" component="h2">
+                <Typography gutterBottom variant="h4" component="h2" className={classes.cardTitle}>
                   Are You looking to put up your house for Rent?
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -396,6 +427,12 @@ const Home = props => {
         className={classes.team}
         container
       > </Grid>
+      <Grid
+          className={classes.paymentContainer}
+          container
+        >
+          <Button className ={classes.paymentButton} color="primary" href="/payment/sign-in"> Get Started </Button>
+        </Grid>
         <Divider />
         <Grid
         className={classes.team}
