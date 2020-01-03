@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -149,6 +150,8 @@ const WishListCard = props => {
   const [open, setOpen] = React.useState(false);
   const [eOpen, setEOpen] = React.useState(false);
   const [productD, setProductD] = React.useState({});
+  const [username, setUsername] = React.useState("");
+  const [route, setRoute] = React.useState("");
   const handleClick = () => {
     setOpen(true);
   };
@@ -166,6 +169,10 @@ const WishListCard = props => {
       setProductD(result.data);
     };
     fetchData();
+    var x = localStorage.getItem("username");
+    setUsername(x);
+    var route = "/client/"+username+"/"+productD.user;
+    setRoute(route);
   }, []);  
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -205,7 +212,9 @@ const WishListCard = props => {
             className={classes.statsItem}
             item
           >
-          <ChatIcon />
+            <Button color = "primary" size ="large" href = {route}>
+          <ChatIcon></ChatIcon >
+          </Button>
           </Grid>
         </Grid>
       </CardActions>

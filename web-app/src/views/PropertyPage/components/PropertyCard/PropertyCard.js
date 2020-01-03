@@ -257,18 +257,6 @@ const PropertyCard = props => {
               Add to Wishlist
             </Button>
           </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalDownloads} Views
-            </Typography>
-          </Grid>
         </Grid>
       </CardActions>
       <Snackbar

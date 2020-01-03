@@ -13,8 +13,8 @@ class Property(models.Model):
     user = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     propertyType = models.CharField(max_length=100)
-    traffic = models.CharField(max_length=100)
-    airQuality = models.CharField(max_length = 100)
+    traffic = models.CharField(max_length=100, blank=True)
+    airQuality = models.CharField(max_length = 100, blank=True)
     moreData = JSONField()
 
     @property

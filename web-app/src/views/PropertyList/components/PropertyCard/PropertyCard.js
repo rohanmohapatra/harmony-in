@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -26,6 +26,7 @@ import { amber, green } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
+import ChatIcon from '@material-ui/icons/Chat';
 const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
@@ -141,6 +142,8 @@ const PropertyCard = props => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [eOpen, setEOpen] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [route, setRoute] = React.useState("");
   const handleClick = () => {
     setOpen(true);
   };
@@ -153,6 +156,14 @@ const PropertyCard = props => {
     setOpen(false);
     setEOpen(false);
   };
+  useEffect(() =>{
+    var x = localStorage.getItem("username");
+    console.log(x);
+    setUsername(x);
+    console.log(product.user);
+    var route = "/client/"+localStorage.getItem("username")+"/"+product.user;
+    setRoute(route);
+  }, []);  
   const addToWishlist = (id, event) =>{
     var nData = {"propertyId" : id};
     const fetchData = async () => {
@@ -261,13 +272,9 @@ const PropertyCard = props => {
             className={classes.statsItem}
             item
           >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {product.totalDownloads} Views
-            </Typography>
+           <Button color = "primary" size ="large" href = {route}>
+          <ChatIcon></ChatIcon >
+          </Button>
           </Grid>
         </Grid>
       </CardActions>

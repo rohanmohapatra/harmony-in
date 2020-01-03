@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
+import Client from './Client';
+import Agent from './Agent';
 
 import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout ,Property as PropertyLayout, Seller as SellerLayout, Rentee as RenteeLayout, Buyer as BuyerLayout} from './layouts';
@@ -55,6 +57,96 @@ const Routes = (props) => {
       exact
       from="/rentee/dashboard"
       to="/rentee/addproperty"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/buyer1/seller1"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/buyer1/seller2"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/buyer1/seller3"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/buyer1/seller4"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/buyer1/seller5"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/phalachandra/seller1"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/phalachandra/seller2"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/phalachandra/seller3"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/phalachandra/seller4"
+      />
+      <RouteWithLayout
+        component={Client}
+        exact
+        layout={MinimalLayout}
+        path="/client/phalachandra/seller5"
+      />
+      <RouteWithLayout
+        component={Agent}
+        exact
+        layout={SellerLayout}
+        path="/agent/seller1"
+      />
+      <RouteWithLayout
+        component={Agent}
+        exact
+        layout={SellerLayout}
+        path="/agent/seller2"
+      />
+      <RouteWithLayout
+        component={Agent}
+        exact
+        layout={SellerLayout}
+        path="/agent/seller3"
+      />
+      <RouteWithLayout
+        component={Agent}
+        exact
+        layout={SellerLayout}
+        path="/agent/seller4"
+      />
+      <RouteWithLayout
+        component={Agent}
+        exact
+        layout={SellerLayout}
+        path="/agent/seller5"
       />
       <RouteWithLayout
         component={HomeView}
@@ -135,6 +227,12 @@ const Routes = (props) => {
         path="/seller/analytics"
       />
       <RouteWithLayout
+        component={AnalyticsView}
+        exact
+        layout={RenteeLayout}
+        path="/rentee/analytics"
+      />
+      <RouteWithLayout
         component={PaymentSignInView}
         exact
         layout={MinimalLayout}
@@ -147,60 +245,6 @@ const Routes = (props) => {
         path="/payment/addlandlord"
       />
 
-      <RouteWithLayout
-        component={DashboardView}
-        exact
-        layout={MainLayout}
-        path="/dashboard"
-      />
-      <RouteWithLayout
-        component={UserListView}
-        exact
-        layout={MainLayout}
-        path="/users"
-      />
-      <RouteWithLayout
-        component={ProductListView}
-        exact
-        layout={MainLayout}
-        path="/products"
-      />
-      <RouteWithLayout
-        component={TypographyView}
-        exact
-        layout={MainLayout}
-        path="/typography"
-      />
-      <RouteWithLayout
-        component={IconsView}
-        exact
-        layout={MainLayout}
-        path="/icons"
-      />
-      <RouteWithLayout
-        component={AccountView}
-        exact
-        layout={MainLayout}
-        path="/account"
-      />
-      <RouteWithLayout
-        component={SettingsView}
-        exact
-        layout={MainLayout}
-        path="/settings"
-      />
-      <RouteWithLayout
-        component={SignUpView}
-        exact
-        layout={MinimalLayout}
-        path="/sign-up"
-      />
-      <RouteWithLayout
-        component={SignInView}
-        exact
-        layout={MinimalLayout}
-        path="/sign-in"
-      />
       <RouteWithLayout
         component={NotFoundView}
         exact

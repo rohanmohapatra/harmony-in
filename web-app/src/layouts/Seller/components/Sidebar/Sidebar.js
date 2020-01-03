@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -6,6 +6,7 @@ import { Divider, Drawer } from '@material-ui/core';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import ChatIcon from '@material-ui/icons/Chat';
 
 import { Profile, SidebarNav, UpgradePlan } from './components';
 
@@ -34,9 +35,12 @@ const useStyles = makeStyles(theme => ({
 
 const Sidebar = props => {
   const { open, variant, onClose, className, ...rest } = props;
-
+  const [username, setUsername] = useState("");
   const classes = useStyles();
-
+  useEffect(() => {
+    var x = localStorage.getItem("username");
+    setUsername(x);
+  }, []);
   const pages = [
     {
       title: 'My Properties',
@@ -52,6 +56,11 @@ const Sidebar = props => {
       title: 'Analytics',
       href: '/seller/analytics',
       icon: <TrendingUpIcon />
+    },
+    {
+      title: 'Chat',
+      href: '/agent/'+username,
+      icon: <ChatIcon />
     },
     /*
     {
