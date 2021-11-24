@@ -1,4 +1,12 @@
 # Harmony-in
 
-Harmony is a web based project that automates and provides functionality of a typical Real Estate that ensures all the customers are satisfied by mutually arriving at an agreement that favours them, with additional Recommendation Software, Filters and Chat feature to enhance the search for the user when compared to existing Real Estate application providers. Harmony provides platform for Owner to post their properties to be rented out on the website, Seller to post their properties to be sold on the website, Buyer to buy a property of their choice, and Renter to look for house on rent based on their preferences. With the suitable architecture and design, our website thrives hard to boost the user experience by using the mentioned software technologies and appropriate software engineering skills. Harmony also provides a secure login, property authentication, user authentication to make sure the website is threat-free. Harmony’s Recommendation Toolkit along with Filters recommends property and allows the customer to choose the right home and the right environment by tweaking the property list based on price, location, air quality, traffic density. Further, if Owner-Renter or Buyer-Seller are mutually interested, a chat feature enables them to communicate closely and gives a clear picture related to the property. Finally, the expected working of the application was ensured using Grey Box testing tool.
+Harmony is a web app that automates and provides the functionality of a typical Housing brokerage wesite.
+
+It aims to ensure that all of its customers are satisfied by mutually arriving at an agreement that favours them, with the help of a Recommendation System, Filters and a Chat feature to enhance the search for a user.Harmony provides a platform for an Owner to post their properties to be rented out or sold, for a Buyer to buy a property of their choice, and a potential tenant to look for a house on rent based on their preferences.
+
+ Harmony also provides a secure login, property authentication,and user authentication to make sure the website is threat-free.
+ 
+ Harmony’s Recommendation Toolkit along with Filters recommends property and allows the customer to choose the right home and even in the right environment by tweaking the property list based on their desired price, location, air quality, traffic density. Furthermore, If an Owner and potential Tenant, or a Buyer and Seller are both interested, a chat feature enables them to communicate directly. 
+ 
+The expected working of the application was ensured using Grey Box testing tool.
 Real-time property viewing/updation and migration to a MicroService architecture can be considered as a future enhancement.
